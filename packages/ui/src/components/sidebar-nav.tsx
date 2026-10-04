@@ -14,10 +14,11 @@ export interface SidebarNavItem {
 
 export interface SidebarNavProps {
   items: SidebarNavItem[]
+  onNavigate?: () => void
   className?: string
 }
 
-export function SidebarNav({ items, className }: SidebarNavProps) {
+export function SidebarNav({ items, onNavigate, className }: SidebarNavProps) {
   const pathname = usePathname()
 
   return (
@@ -31,6 +32,7 @@ export function SidebarNav({ items, className }: SidebarNavProps) {
           <Link
             key={item.href}
             href={item.href}
+            onClick={onNavigate}
             className={cn(
               'flex items-center gap-3 rounded-md px-3 py-2 text-ui font-medium transition-colors duration-200',
               active
