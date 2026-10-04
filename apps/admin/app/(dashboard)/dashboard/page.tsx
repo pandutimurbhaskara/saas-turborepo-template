@@ -73,9 +73,7 @@ export default async function AdminDashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-2 text-small text-muted-foreground">
-            <p>
-              Expires {session ? formatRelativeTime(session.session.expiresAt) : 'unknown'}
-            </p>
+            <p>Expires {session ? formatRelativeTime(session.session.expiresAt) : 'unknown'}</p>
             <p>
               Served by <span className="font-mono text-foreground">{host}</span>
             </p>

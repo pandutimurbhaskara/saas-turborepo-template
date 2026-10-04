@@ -16,7 +16,9 @@ describe('generateSessionToken', () => {
 describe('hashSessionToken', () => {
   it('is deterministic for the same token and secret', () => {
     const secret = 'a'.repeat(32)
-    expect(hashSessionToken('session-token', secret)).toBe(hashSessionToken('session-token', secret))
+    expect(hashSessionToken('session-token', secret)).toBe(
+      hashSessionToken('session-token', secret),
+    )
   })
 
   it('produces a sha256-length hex digest', () => {

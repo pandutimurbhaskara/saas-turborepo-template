@@ -32,7 +32,9 @@ export async function syncAuthorizationCatalog(): Promise<void> {
     }
 
     const roleRows = await tx.select({ id: roles.id, key: roles.key }).from(roles)
-    const permissionRows = await tx.select({ id: permissions.id, key: permissions.key }).from(permissions)
+    const permissionRows = await tx
+      .select({ id: permissions.id, key: permissions.key })
+      .from(permissions)
     const permissionIdByKey = new Map(permissionRows.map((row) => [row.key, row.id]))
 
     for (const roleRow of roleRows) {

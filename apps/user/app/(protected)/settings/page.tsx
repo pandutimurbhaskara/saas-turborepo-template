@@ -1,14 +1,7 @@
 import { requireAuth } from '@repo/auth'
 import { getUserPreferences } from '@repo/db'
 import { DEFAULT_USER_PREFERENCES } from '@repo/types'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  PageHeader,
-} from '@repo/ui'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, PageHeader } from '@repo/ui'
 import type { Metadata } from 'next'
 
 import { PreferencesForm } from '@/features/settings/components/preferences-form'

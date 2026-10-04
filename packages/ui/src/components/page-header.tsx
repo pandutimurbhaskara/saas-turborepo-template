@@ -12,10 +12,7 @@ export interface PageHeaderProps {
 export function PageHeader({ overline, title, description, actions, className }: PageHeaderProps) {
   return (
     <header
-      className={cn(
-        'flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between',
-        className,
-      )}
+      className={cn('flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between', className)}
     >
       <div className="flex flex-col gap-1.5">
         {overline && <p className="text-overline uppercase text-primary">{overline}</p>}

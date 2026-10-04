@@ -6,9 +6,4 @@ export { AuthError, EmailTakenError, InvalidCredentialsError } from './errors'
 export { requireApplicationAccess, requireAuth, requirePermission, requireRole } from './guards'
 export { getCurrentUser, getSession, signOut } from './session'
 
-export {
-  AuthorizationError,
-  hasApplicationAccess,
-  hasPermission,
-  hasRole,
-} from '@repo/domain'
+export { AuthorizationError, hasApplicationAccess, hasPermission, hasRole } from '@repo/domain'

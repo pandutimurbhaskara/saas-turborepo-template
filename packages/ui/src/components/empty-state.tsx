@@ -25,7 +25,9 @@ export function EmptyState({ icon: Icon, title, description, action, className }
       )}
       <div className="flex flex-col gap-1">
         <h3 className="font-display text-lg font-semibold tracking-[-0.01em]">{title}</h3>
-        {description && <p className="mx-auto max-w-sm text-ui text-muted-foreground">{description}</p>}
+        {description && (
+          <p className="mx-auto max-w-sm text-ui text-muted-foreground">{description}</p>
+        )}
       </div>
       {action}
     </div>

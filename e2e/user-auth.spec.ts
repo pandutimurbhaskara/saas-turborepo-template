@@ -14,9 +14,7 @@ test.describe('user application authentication', () => {
     await page.getByRole('button', { name: 'Create account' }).click()
 
     await expect(page).toHaveURL(/\/dashboard$/)
-    await expect(
-      page.getByRole('heading', { level: 1, name: 'Welcome back, E2E' }),
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: 'Welcome back, E2E' })).toBeVisible()
     await expect(page.getByText('USER', { exact: true })).toBeVisible()
 
     await page.getByRole('button', { name: 'Account menu' }).click()

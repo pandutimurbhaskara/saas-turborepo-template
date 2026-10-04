@@ -22,7 +22,10 @@ export async function loginAction(_prevState: FormState, formData: FormData): Pr
   redirect(next)
 }
 
-export async function registerAction(_prevState: FormState, formData: FormData): Promise<FormState> {
+export async function registerAction(
+  _prevState: FormState,
+  formData: FormData,
+): Promise<FormState> {
   const name = String(formData.get('name') ?? '')
   const email = String(formData.get('email') ?? '')
   const password = String(formData.get('password') ?? '')

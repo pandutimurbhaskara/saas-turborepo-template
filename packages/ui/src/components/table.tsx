@@ -4,7 +4,10 @@ import type { HTMLAttributes, TdHTMLAttributes, ThHTMLAttributes } from 'react'
 export function Table({ className, ...props }: HTMLAttributes<HTMLTableElement>) {
   return (
     <div className="w-full overflow-x-auto rounded-xl border border-border bg-surface">
-      <table className={cn('w-full caption-bottom border-collapse text-left', className)} {...props} />
+      <table
+        className={cn('w-full caption-bottom border-collapse text-left', className)}
+        {...props}
+      />
     </div>
   )
 }
@@ -39,7 +42,9 @@ export function TableHead({ className, ...props }: ThHTMLAttributes<HTMLTableCel
 }
 
 export function TableCell({ className, ...props }: TdHTMLAttributes<HTMLTableCellElement>) {
-  return <td className={cn('px-4 py-3 align-middle text-ui text-foreground', className)} {...props} />
+  return (
+    <td className={cn('px-4 py-3 align-middle text-ui text-foreground', className)} {...props} />
+  )
 }
 
 export function TableCaption({ className, ...props }: HTMLAttributes<HTMLTableCaptionElement>) {

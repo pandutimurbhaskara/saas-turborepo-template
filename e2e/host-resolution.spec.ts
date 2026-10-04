@@ -10,9 +10,7 @@ test.describe('host-based application resolution', () => {
     await expect(page.getByRole('heading', { level: 1 })).toContainText(
       'Ship multi-app products from a single codebase',
     )
-    await expect(
-      page.getByText('Turborepo + Next.js boilerplate', { exact: true }),
-    ).toBeVisible()
+    await expect(page.getByText('Turborepo + Next.js boilerplate', { exact: true })).toBeVisible()
   })
 
   test('the admin subdomain resolves the admin application', async ({ page }) => {
@@ -32,6 +30,8 @@ test.describe('host-based application resolution', () => {
     await expect(
       page.getByRole('heading', { level: 1, name: 'Sign in to the console' }),
     ).toBeVisible()
-    await expect(page.getByRole('heading', { level: 1 })).not.toContainText('Ship multi-app products')
+    await expect(page.getByRole('heading', { level: 1 })).not.toContainText(
+      'Ship multi-app products',
+    )
   })
 })

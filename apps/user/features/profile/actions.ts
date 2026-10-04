@@ -15,7 +15,11 @@ export async function updateProfileAction(
 
   const name = String(formData.get('name') ?? '').trim()
   if (name.length < 1 || name.length > 100) {
-    return { ...INITIAL_FORM_STATE, status: 'error', message: 'Enter a name between 1 and 100 characters.' }
+    return {
+      ...INITIAL_FORM_STATE,
+      status: 'error',
+      message: 'Enter a name between 1 and 100 characters.',
+    }
   }
 
   await updateUserProfile(user.id, { name })

@@ -14,7 +14,8 @@ const cardVariants = cva('overflow-hidden rounded-xl border border-border bg-sur
   },
 })
 
-export interface CardProps extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants> {}
+export interface CardProps
+  extends HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants> {}
 
 export function Card({ className, interactive, ...props }: CardProps) {
   return <div className={cn(cardVariants({ interactive }), className)} {...props} />

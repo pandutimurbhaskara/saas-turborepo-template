@@ -47,11 +47,16 @@ export default async function AdminSettingsPage() {
         <Card>
           <CardHeader>
             <CardTitle>Application registry</CardTitle>
-            <CardDescription>Defined once in @repo/domain, driven by environment URLs.</CardDescription>
+            <CardDescription>
+              Defined once in @repo/domain, driven by environment URLs.
+            </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
             {registry.applications.map((application) => (
-              <div key={application.key} className="flex flex-col gap-1.5 rounded-lg border border-border p-3.5">
+              <div
+                key={application.key}
+                className="flex flex-col gap-1.5 rounded-lg border border-border p-3.5"
+              >
                 <div className="flex items-center justify-between gap-3">
                   <p className="font-mono text-small text-foreground">{application.host}</p>
                   <Badge variant={application.enabled ? 'success' : 'default'}>

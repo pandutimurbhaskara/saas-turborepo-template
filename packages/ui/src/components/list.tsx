@@ -4,7 +4,10 @@ import type { HTMLAttributes } from 'react'
 export function List({ className, ...props }: HTMLAttributes<HTMLUListElement>) {
   return (
     <ul
-      className={cn('divide-y divide-border overflow-hidden rounded-xl border border-border bg-surface', className)}
+      className={cn(
+        'divide-y divide-border overflow-hidden rounded-xl border border-border bg-surface',
+        className,
+      )}
       {...props}
     />
   )
@@ -30,9 +33,6 @@ export function ListItemTitle({ className, ...props }: HTMLAttributes<HTMLParagr
   return <p className={cn('truncate font-medium text-foreground', className)} {...props} />
 }
 
-export function ListItemDescription({
-  className,
-  ...props
-}: HTMLAttributes<HTMLParagraphElement>) {
+export function ListItemDescription({ className, ...props }: HTMLAttributes<HTMLParagraphElement>) {
   return <p className={cn('truncate text-small text-muted-foreground', className)} {...props} />
 }

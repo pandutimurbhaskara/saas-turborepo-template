@@ -42,7 +42,8 @@ export function SelectContent({
         position={position}
         className={cn(
           'relative z-50 max-h-96 min-w-32 overflow-hidden rounded-lg border border-border bg-surface text-foreground shadow-lg data-[state=closed]:animate-content-out data-[state=open]:animate-content-in',
-          position === 'popper' && 'data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1',
+          position === 'popper' &&
+            'data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1',
           className,
         )}
         {...props}
@@ -53,7 +54,8 @@ export function SelectContent({
         <SelectPrimitive.Viewport
           className={cn(
             'p-1',
-            position === 'popper' && 'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]',
+            position === 'popper' &&
+              'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]',
           )}
         >
           {children}

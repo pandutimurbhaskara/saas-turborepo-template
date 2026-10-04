@@ -55,7 +55,9 @@ describe('joinUrl', () => {
     expect(joinUrl('https://example.com', '/dashboard')).toBe('https://example.com/dashboard')
     expect(joinUrl('https://example.com/', '/dashboard')).toBe('https://example.com/dashboard')
     expect(joinUrl('https://example.com/', 'dashboard')).toBe('https://example.com/dashboard')
-    expect(joinUrl('http://admin.localhost:3001', '/users')).toBe('http://admin.localhost:3001/users')
+    expect(joinUrl('http://admin.localhost:3001', '/users')).toBe(
+      'http://admin.localhost:3001/users',
+    )
   })
 })
 

@@ -24,9 +24,7 @@ export function SidebarNav({ items, onNavigate, className }: SidebarNavProps) {
   return (
     <nav className={cn('flex flex-col gap-1', className)} aria-label="Sidebar">
       {items.map((item) => {
-        const active = item.exact
-          ? pathname === item.href
-          : isActivePath(pathname, item.href)
+        const active = item.exact ? pathname === item.href : isActivePath(pathname, item.href)
 
         return (
           <Link

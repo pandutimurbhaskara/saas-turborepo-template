@@ -9,10 +9,7 @@ export function proxy(request: NextRequest) {
   const self = getApplicationByKey(APPLICATION_KEY)
 
   if (resolved && resolved.key !== APPLICATION_KEY && self) {
-    const target = joinUrl(
-      resolved.url,
-      `${request.nextUrl.pathname}${request.nextUrl.search}`,
-    )
+    const target = joinUrl(resolved.url, `${request.nextUrl.pathname}${request.nextUrl.search}`)
     return NextResponse.redirect(target)
   }
 

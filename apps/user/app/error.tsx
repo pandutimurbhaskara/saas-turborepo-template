@@ -3,7 +3,12 @@
 import { Button, ErrorState } from '@repo/ui'
 import Link from 'next/link'
 
-export default function GlobalError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function GlobalError({
+  reset,
+}: {
+  error: Error & { digest?: string }
+  reset: () => void
+}) {
   return (
     <div className="mx-auto max-w-site px-6 py-12">
       <ErrorState

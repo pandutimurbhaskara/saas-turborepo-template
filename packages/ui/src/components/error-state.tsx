@@ -28,7 +28,9 @@ export function ErrorState({ status, title, description, actions, className }: E
           <p className="mx-auto max-w-md text-ui text-muted-foreground">{description}</p>
         )}
       </div>
-      {actions && <div className="mt-2 flex flex-wrap items-center justify-center gap-3">{actions}</div>}
+      {actions && (
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-3">{actions}</div>
+      )}
     </div>
   )
 }

@@ -40,7 +40,10 @@ export function DotGrid({ className }: DotGridProps) {
       const { width, height } = canvas.getBoundingClientRect()
       const scale = window.devicePixelRatio || 1
 
-      if (canvas.width !== Math.floor(width * scale) || canvas.height !== Math.floor(height * scale)) {
+      if (
+        canvas.width !== Math.floor(width * scale) ||
+        canvas.height !== Math.floor(height * scale)
+      ) {
         canvas.width = Math.floor(width * scale)
         canvas.height = Math.floor(height * scale)
       }

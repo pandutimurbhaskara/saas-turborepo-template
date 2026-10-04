@@ -48,7 +48,9 @@ export function SiteFooter({ brand, description, columns, copyright, className }
       </div>
       {copyright && (
         <div className="border-t border-border">
-          <p className="mx-auto max-w-site px-6 py-6 text-caption text-subtle-foreground">{copyright}</p>
+          <p className="mx-auto max-w-site px-6 py-6 text-caption text-subtle-foreground">
+            {copyright}
+          </p>
         </div>
       )}
     </footer>

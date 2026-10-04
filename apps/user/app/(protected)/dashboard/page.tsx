@@ -55,13 +55,13 @@ export default async function DashboardPage() {
             <CardDescription>Server-validated, database-backed session.</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-2 text-small text-muted-foreground">
-            <p>
-              Expires {session ? formatRelativeTime(session.session.expiresAt) : 'unknown'}
-            </p>
+            <p>Expires {session ? formatRelativeTime(session.session.expiresAt) : 'unknown'}</p>
             <p>
               Served by <span className="font-mono text-foreground">{host}</span>
             </p>
-            <p>Resolved application: <span className="font-mono text-foreground">user</span></p>
+            <p>
+              Resolved application: <span className="font-mono text-foreground">user</span>
+            </p>
           </CardContent>
         </Card>
 
@@ -82,9 +82,7 @@ export default async function DashboardPage() {
               {user.permissions.slice(0, 6).map((permission) => (
                 <Badge key={permission}>{permission}</Badge>
               ))}
-              {user.permissions.length > 6 && (
-                <Badge>+{user.permissions.length - 6} more</Badge>
-              )}
+              {user.permissions.length > 6 && <Badge>+{user.permissions.length - 6} more</Badge>}
             </div>
           </CardContent>
         </Card>

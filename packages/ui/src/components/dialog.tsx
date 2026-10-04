@@ -58,7 +58,10 @@ export function DialogHeader({ className, ...props }: ComponentProps<'div'>) {
 
 export function DialogFooter({ className, ...props }: ComponentProps<'div'>) {
   return (
-    <div className={cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)} {...props} />
+    <div
+      className={cn('flex flex-col-reverse gap-2 sm:flex-row sm:justify-end', className)}
+      {...props}
+    />
   )
 }
 

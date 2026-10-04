@@ -1,4 +1,9 @@
-import { assignRolesToUser, createUser, findUserCredentialsByEmail, getUserWithAuthorization } from '@repo/db'
+import {
+  assignRolesToUser,
+  createUser,
+  findUserCredentialsByEmail,
+  getUserWithAuthorization,
+} from '@repo/db'
 import { ROLES, type User } from '@repo/types'
 import { hashPassword, verifyPassword } from '@repo/utils/node'
 import { z } from 'zod'

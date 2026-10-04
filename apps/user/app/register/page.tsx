@@ -21,7 +21,9 @@ export default async function RegisterPage() {
           <CardTitle as="h1" className="text-subhead">
             Create your account
           </CardTitle>
-          <CardDescription>Start with the user role — roles are managed server-side.</CardDescription>
+          <CardDescription>
+            Start with the user role — roles are managed server-side.
+          </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-6">
           <RegisterForm />

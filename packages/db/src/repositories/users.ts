@@ -45,11 +45,7 @@ export interface CreateUserInput {
 }
 
 export async function findUserById(userId: string): Promise<UserRecord | null> {
-  const [row] = await getDb()
-    .select(userColumns)
-    .from(users)
-    .where(eq(users.id, userId))
-    .limit(1)
+  const [row] = await getDb().select(userColumns).from(users).where(eq(users.id, userId)).limit(1)
 
   return row ?? null
 }
@@ -130,10 +126,7 @@ export async function assignRolesToUser(userId: string, roleKeys: Role[]): Promi
   if (roleKeys.length === 0) return
 
   const db = getDb()
-  const roleRows = await db
-    .select({ id: roles.id })
-    .from(roles)
-    .where(inArray(roles.key, roleKeys))
+  const roleRows = await db.select({ id: roles.id }).from(roles).where(inArray(roles.key, roleKeys))
 
   if (roleRows.length === 0) return
 

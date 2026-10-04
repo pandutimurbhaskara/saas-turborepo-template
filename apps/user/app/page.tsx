@@ -8,7 +8,15 @@ import {
   CodeBlock,
   InlineCode,
 } from '@repo/ui'
-import { Database, Globe, KeyRound, Palette, ShieldCheck, Workflow, type LucideIcon } from 'lucide-react'
+import {
+  Database,
+  Globe,
+  KeyRound,
+  Palette,
+  ShieldCheck,
+  Workflow,
+  type LucideIcon,
+} from 'lucide-react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
@@ -116,7 +124,9 @@ export default async function HomePage() {
       <section className="mx-auto max-w-site px-6 py-16 sm:py-24">
         <div className="flex flex-col gap-3">
           <p className="text-overline uppercase text-primary">Architecture</p>
-          <h2 className="max-w-2xl text-heading">Everything a multi-application foundation needs</h2>
+          <h2 className="max-w-2xl text-heading">
+            Everything a multi-application foundation needs
+          </h2>
         </div>
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((feature) => (

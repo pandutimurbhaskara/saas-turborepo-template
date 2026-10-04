@@ -70,7 +70,9 @@ export default async function AdminUsersPage() {
                     )}
                   </div>
                 </TableCell>
-                <TableCell className="text-muted-foreground">{formatDate(user.createdAt)}</TableCell>
+                <TableCell className="text-muted-foreground">
+                  {formatDate(user.createdAt)}
+                </TableCell>
                 <TableCell>
                   <Badge variant="success">Active</Badge>
                 </TableCell>

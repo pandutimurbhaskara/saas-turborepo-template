@@ -30,12 +30,18 @@ export function ProfileForm({ defaultName, email }: ProfileFormProps) {
   return (
     <form action={formAction} className="flex flex-col gap-5">
       {state.status === 'error' && (
-        <div role="alert" className="rounded-md border border-error/20 bg-error/5 px-3.5 py-2.5 text-small text-error">
+        <div
+          role="alert"
+          className="rounded-md border border-error/20 bg-error/5 px-3.5 py-2.5 text-small text-error"
+        >
           {state.message}
         </div>
       )}
       {state.status === 'success' && (
-        <div role="status" className="rounded-md border border-success/20 bg-success/5 px-3.5 py-2.5 text-small text-success">
+        <div
+          role="status"
+          className="rounded-md border border-success/20 bg-success/5 px-3.5 py-2.5 text-small text-success"
+        >
           {state.message}
         </div>
       )}

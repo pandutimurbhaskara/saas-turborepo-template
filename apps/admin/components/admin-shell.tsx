@@ -93,9 +93,7 @@ export function AdminShell({ user, signOutAction, children }: AdminShellProps) {
             </Dialog.Root>
             <span className="lg:hidden">{brand}</span>
           </div>
-          <p className="hidden text-small text-muted-foreground lg:block">
-            Administration console
-          </p>
+          <p className="hidden text-small text-muted-foreground lg:block">Administration console</p>
           <div className="flex items-center gap-2">
             <SearchCommand items={SEARCH_ITEMS} className="hidden sm:flex" />
             <ThemeToggle />
