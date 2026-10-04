@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+.turbo/
+dist/
+build/
+*.tsbuildinfo
+
+# Testing
+coverage/
+playwright-report/
+test-results/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Local tooling
+.commandcode/
+.vercel/
+.DS_Store
+*.log
+
+# Markdown stays local and is never committed
+*.md
