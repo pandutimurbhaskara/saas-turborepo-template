@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
-import { absoluteUrl, isSafeRedirect, joinUrl, safeRedirectPath, stripTrailingSlash } from './url'
+import {
+  absoluteUrl,
+  isActivePath,
+  isSafeRedirect,
+  joinUrl,
+  safeRedirectPath,
+  stripTrailingSlash,
+} from './url'
 
 describe('isSafeRedirect', () => {
   it('accepts internal absolute paths', () => {
@@ -62,5 +69,18 @@ describe('stripTrailingSlash', () => {
 describe('absoluteUrl', () => {
   it('resolves a path against a base', () => {
     expect(absoluteUrl('/dashboard', 'https://example.com')).toBe('https://example.com/dashboard')
+  })
+})
+
+describe('isActivePath', () => {
+  it('matches exact and nested paths', () => {
+    expect(isActivePath('/settings', '/settings')).toBe(true)
+    expect(isActivePath('/settings/profile', '/settings')).toBe(true)
+    expect(isActivePath('/settings-other', '/settings')).toBe(false)
+  })
+
+  it('treats the root path as exact only', () => {
+    expect(isActivePath('/', '/')).toBe(true)
+    expect(isActivePath('/dashboard', '/')).toBe(false)
   })
 })

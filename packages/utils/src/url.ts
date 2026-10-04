@@ -22,3 +22,8 @@ export function joinUrl(base: string, path: string): string {
 export function absoluteUrl(path: string, base: string): string {
   return new URL(path, base).toString()
 }
+
+export function isActivePath(pathname: string, href: string): boolean {
+  if (href === '/') return pathname === '/'
+  return pathname === href || pathname.startsWith(`${href}/`)
+}
