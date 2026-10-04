@@ -8,7 +8,9 @@
     "SELLER_APP_URL",
     "DATABASE_URL",
     "AUTH_SECRET",
-    "AUTH_COOKIE_DOMAIN"
+    "AUTH_COOKIE_DOMAIN",
+    "SEED_ADMIN_PASSWORD",
+    "SEED_USER_PASSWORD"
   ],
   "tasks": {
     "build": {
