@@ -27,7 +27,9 @@ export default async function LoginPage({
       <Brand name={APP_NAME} secondary={APP_SECONDARY} />
       <Card className="w-full max-w-[400px]">
         <CardHeader>
-          <CardTitle className="text-subhead">Sign in to the console</CardTitle>
+          <CardTitle as="h1" className="text-subhead">
+            Sign in to the console
+          </CardTitle>
           <CardDescription>
             Only accounts with the ADMIN role can access this application.
           </CardDescription>

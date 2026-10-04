@@ -18,7 +18,9 @@ export default async function RegisterPage() {
     <div className="mx-auto flex min-h-[70vh] w-full max-w-site items-center justify-center px-6 py-16">
       <Card className="w-full max-w-[400px]">
         <CardHeader>
-          <CardTitle className="text-subhead">Create your account</CardTitle>
+          <CardTitle as="h1" className="text-subhead">
+            Create your account
+          </CardTitle>
           <CardDescription>Start with the user role — roles are managed server-side.</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-6">
