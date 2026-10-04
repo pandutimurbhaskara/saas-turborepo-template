@@ -13,5 +13,9 @@ export default [
     languageOptions: {
       globals: { ...globals.browser, ...globals.node, ...globals.es2022 },
     },
+    rules: {
+      // App Router root layouts load fonts globally, unlike pages/_document.
+      '@next/next/no-page-custom-font': 'off',
+    },
   },
 ]

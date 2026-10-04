@@ -31,7 +31,7 @@ export async function startSession(userId: string): Promise<Session> {
   return session
 }
 
-export async function destroySession(): Promise<void> {
+export async function signOut(): Promise<void> {
   const token = await readSessionToken()
   if (token) {
     await deleteSessionByTokenHash(hashSessionToken(token))
