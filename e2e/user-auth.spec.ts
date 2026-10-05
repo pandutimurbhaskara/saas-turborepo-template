@@ -1,10 +1,10 @@
 import { expect, test } from '@playwright/test'
 
-const SEED_USER_EMAIL = 'user@example.com'
-const SEED_USER_PASSWORD = process.env.SEED_USER_PASSWORD ?? 'User123!'
+const SEED_CUSTOMER_EMAIL = 'customer@example.com'
+const SEED_CUSTOMER_PASSWORD = process.env.SEED_CUSTOMER_PASSWORD ?? 'Customer123!'
 
-test.describe('user application authentication', () => {
-  test('a visitor can register, reach the dashboard and sign out', async ({ page }) => {
+test.describe('storefront authentication', () => {
+  test('a visitor can register, reach the account overview and sign out', async ({ page }) => {
     const email = `e2e-${Date.now()}@example.com`
 
     await page.goto('/register')
@@ -15,7 +15,7 @@ test.describe('user application authentication', () => {
 
     await expect(page).toHaveURL(/\/dashboard$/)
     await expect(page.getByRole('heading', { level: 1, name: 'Welcome back, E2E' })).toBeVisible()
-    await expect(page.getByText('USER', { exact: true })).toBeVisible()
+    await expect(page.getByText('CUSTOMER', { exact: true })).toBeVisible()
 
     await page.getByRole('button', { name: 'Account menu' }).click()
     await page.getByRole('menuitem', { name: 'Sign out' }).click()
@@ -26,19 +26,19 @@ test.describe('user application authentication', () => {
     await expect(page).toHaveURL(/\/login/)
   })
 
-  test('a seeded user can sign in', async ({ page }) => {
+  test('a seeded customer can sign in', async ({ page }) => {
     await page.goto('/login')
-    await page.getByLabel('Email').fill(SEED_USER_EMAIL)
-    await page.getByLabel('Password').fill(SEED_USER_PASSWORD)
+    await page.getByLabel('Email').fill(SEED_CUSTOMER_EMAIL)
+    await page.getByLabel('Password').fill(SEED_CUSTOMER_PASSWORD)
     await page.getByRole('button', { name: 'Sign in' }).click()
 
     await expect(page).toHaveURL(/\/dashboard$/)
-    await expect(page.getByText(SEED_USER_EMAIL)).toBeVisible()
+    await expect(page.getByText(SEED_CUSTOMER_EMAIL)).toBeVisible()
   })
 
   test('invalid credentials show an error', async ({ page }) => {
     await page.goto('/login')
-    await page.getByLabel('Email').fill(SEED_USER_EMAIL)
+    await page.getByLabel('Email').fill(SEED_CUSTOMER_EMAIL)
     await page.getByLabel('Password').fill('wrong-password')
     await page.getByRole('button', { name: 'Sign in' }).click()
 

@@ -13,4 +13,12 @@ export default function globalSetup(): void {
 
   execSync('pnpm --filter @repo/db db:migrate', { stdio: 'inherit', env: process.env })
   execSync('pnpm --filter @repo/db db:seed', { stdio: 'inherit', env: process.env })
+
+  try {
+    execSync('pnpm --filter @repo/storage storage:setup', { stdio: 'inherit', env: process.env })
+  } catch {
+    console.warn(
+      'Storage setup skipped — start MinIO (docker compose up -d) to exercise image uploads.',
+    )
+  }
 }

@@ -3,8 +3,8 @@ import { expect, test } from '@playwright/test'
 const ADMIN_APP_URL = process.env.ADMIN_APP_URL ?? 'http://admin.localhost:3001'
 const SEED_ADMIN_EMAIL = 'admin@example.com'
 const SEED_ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD ?? 'Admin123!'
-const SEED_USER_EMAIL = 'user@example.com'
-const SEED_USER_PASSWORD = process.env.SEED_USER_PASSWORD ?? 'User123!'
+const SEED_CUSTOMER_EMAIL = 'customer@example.com'
+const SEED_CUSTOMER_PASSWORD = process.env.SEED_CUSTOMER_PASSWORD ?? 'Customer123!'
 
 test.describe('admin application access control', () => {
   test('unauthenticated admin access is blocked', async ({ page }) => {
@@ -26,20 +26,20 @@ test.describe('admin application access control', () => {
     await page.goto(`${ADMIN_APP_URL}/users`)
     await expect(page.getByRole('heading', { name: 'Users' })).toBeVisible()
     await expect(page.getByText(SEED_ADMIN_EMAIL)).toBeVisible()
-    await expect(page.getByText(SEED_USER_EMAIL)).toBeVisible()
+    await expect(page.getByText(SEED_CUSTOMER_EMAIL)).toBeVisible()
   })
 
   test('wrong-role admin access is blocked', async ({ page }) => {
     await page.goto(`${ADMIN_APP_URL}/login`)
-    await page.getByLabel('Email').fill(SEED_USER_EMAIL)
-    await page.getByLabel('Password').fill(SEED_USER_PASSWORD)
+    await page.getByLabel('Email').fill(SEED_CUSTOMER_EMAIL)
+    await page.getByLabel('Password').fill(SEED_CUSTOMER_PASSWORD)
     await page.getByRole('button', { name: 'Sign in' }).click()
 
     await expect(page).toHaveURL(/\/forbidden$/)
-    await expect(page.getByText('Access denied')).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: 'Access denied' })).toBeVisible()
 
-    await page.goto(`${ADMIN_APP_URL}/users`)
+    await page.goto(`${ADMIN_APP_URL}/products`)
     await expect(page).toHaveURL(/\/forbidden$/)
-    await expect(page.getByText('Access denied')).toBeVisible()
+    await expect(page.getByRole('heading', { level: 1, name: 'Access denied' })).toBeVisible()
   })
 })
