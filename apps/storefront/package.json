@@ -1,5 +1,5 @@
 {
-  "name": "user",
+  "name": "storefront",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -14,6 +14,7 @@
     "@repo/auth": "workspace:*",
     "@repo/db": "workspace:*",
     "@repo/domain": "workspace:*",
+    "@repo/storage": "workspace:*",
     "@repo/types": "workspace:*",
     "@repo/ui": "workspace:*",
     "@repo/utils": "workspace:*",

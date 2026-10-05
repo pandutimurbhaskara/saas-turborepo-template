@@ -1,14 +1,15 @@
-import { getApplicationByKey, getApplicationFromHost } from '@repo/domain'
+import { getApplicationByKey, getApplicationFromHost, isOwnOriginRequest } from '@repo/domain'
 import { joinUrl } from '@repo/utils'
 import { NextResponse, type NextRequest } from 'next/server'
 
 import { APPLICATION_KEY } from '@/lib/app'
 
 export function proxy(request: NextRequest) {
-  const resolved = getApplicationFromHost(request.headers.get('host'))
+  const host = request.headers.get('host')
+  const resolved = getApplicationFromHost(host)
   const self = getApplicationByKey(APPLICATION_KEY)
 
-  if (resolved && resolved.key !== APPLICATION_KEY && self) {
+  if (resolved && self && resolved.key !== APPLICATION_KEY && !isOwnOriginRequest(host, self)) {
     const target = joinUrl(resolved.url, `${request.nextUrl.pathname}${request.nextUrl.search}`)
     return NextResponse.redirect(target)
   }

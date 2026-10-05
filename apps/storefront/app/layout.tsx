@@ -11,6 +11,7 @@ import {
 import type { Metadata } from 'next'
 import Link from 'next/link'
 
+import { CartLink } from '@/components/cart-link'
 import { signOutAction } from '@/lib/actions'
 import { APP_DESCRIPTION, APP_NAME } from '@/lib/app'
 
@@ -18,7 +19,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: `${APP_NAME} — Turborepo + Next.js starter`,
+    default: `${APP_NAME} — Online store`,
     template: `%s · ${APP_NAME}`,
   },
   description: APP_DESCRIPTION,
@@ -26,9 +27,7 @@ export const metadata: Metadata = {
 
 const NAVIGATION = [
   { href: '/', label: 'Home' },
-  { href: '/dashboard', label: 'Dashboard' },
-  { href: '/profile', label: 'Profile' },
-  { href: '/settings', label: 'Settings' },
+  { href: '/products', label: 'Products' },
 ]
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -63,6 +62,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               searchItems={NAVIGATION}
               actions={
                 <div className="flex items-center gap-2">
+                  <CartLink />
                   <ThemeToggle />
                   {user ? (
                     <UserMenu
@@ -72,6 +72,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                       signOutAction={signOutAction}
                       links={[
                         { href: '/dashboard', label: 'Dashboard' },
+                        { href: '/orders', label: 'Orders' },
                         { href: '/profile', label: 'Profile' },
                         { href: '/settings', label: 'Settings' },
                       ]}
@@ -82,7 +83,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                         <Link href="/login">Sign in</Link>
                       </Button>
                       <Button size="sm" asChild>
-                        <Link href="/register">Get started</Link>
+                        <Link href="/register">Create account</Link>
                       </Button>
                     </>
                   )}
@@ -95,12 +96,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               description={APP_DESCRIPTION}
               columns={[
                 {
-                  title: 'Application',
+                  title: 'Shop',
                   links: [
                     { label: 'Home', href: '/' },
-                    { label: 'Dashboard', href: '/dashboard' },
-                    { label: 'Profile', href: '/profile' },
-                    { label: 'Settings', href: '/settings' },
+                    { label: 'Products', href: '/products' },
+                    { label: 'Cart', href: '/cart' },
                   ],
                 },
                 {
@@ -108,10 +108,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                   links: [
                     { label: 'Sign in', href: '/login' },
                     { label: 'Create account', href: '/register' },
+                    { label: 'Orders', href: '/orders' },
                   ],
                 },
               ]}
-              copyright={`© ${new Date().getFullYear()} ${APP_NAME}. A reusable multi-application starter.`}
+              copyright={`© ${new Date().getFullYear()} ${APP_NAME}. Built on the shared Turborepo foundation.`}
             />
           </div>
         </ThemeProvider>
