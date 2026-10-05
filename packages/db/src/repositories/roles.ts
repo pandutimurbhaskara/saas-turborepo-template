@@ -1,14 +1,12 @@
 import { ROLE_PERMISSIONS, ROLES, type Role } from '@repo/types'
-import { count, eq } from 'drizzle-orm'
+import { count, eq, notInArray } from 'drizzle-orm'
 
 import { getDb } from '../client'
 import { permissions, rolePermissions, roles } from '../schema'
 
 const ROLE_NAMES: Record<Role, string> = {
-  [ROLES.USER]: 'User',
+  [ROLES.CUSTOMER]: 'Customer',
   [ROLES.ADMIN]: 'Administrator',
-  [ROLES.SELLER]: 'Seller',
-  [ROLES.STAFF]: 'Staff',
 }
 
 export async function syncAuthorizationCatalog(): Promise<void> {
@@ -30,6 +28,9 @@ export async function syncAuthorizationCatalog(): Promise<void> {
         .values({ key })
         .onConflictDoUpdate({ target: permissions.key, set: { key } })
     }
+
+    await tx.delete(roles).where(notInArray(roles.key, roleKeys))
+    await tx.delete(permissions).where(notInArray(permissions.key, permissionKeys))
 
     const roleRows = await tx.select({ id: roles.id, key: roles.key }).from(roles)
     const permissionRows = await tx

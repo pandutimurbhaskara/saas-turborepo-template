@@ -1,6 +1,10 @@
 import 'server-only'
 
 export * from './client'
+export * from './repositories/carts'
+export * from './repositories/categories'
+export * from './repositories/orders'
+export * from './repositories/products'
 export * from './repositories/roles'
 export * from './repositories/sessions'
 export * from './repositories/users'
