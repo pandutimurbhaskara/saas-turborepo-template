@@ -1,8 +1,8 @@
 {
-  "name": "saas-turborepo-template",
+  "name": "store-turborepo-template",
   "version": "0.1.0",
   "private": true,
-  "description": "Reusable Turborepo + Next.js boilerplate for subdomain-isolated multi-application products.",
+  "description": "Reusable Turborepo + Next.js starter for a single-tenant online store with S3-compatible object storage and an isolated admin console.",
   "license": "MIT",
   "packageManager": "pnpm@10.24.0",
   "engines": {
@@ -22,7 +22,8 @@
     "db:migrate": "turbo db:migrate",
     "db:push": "turbo db:push",
     "db:seed": "turbo db:seed",
-    "db:studio": "turbo db:studio"
+    "db:studio": "turbo db:studio",
+    "storage:setup": "turbo storage:setup"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",

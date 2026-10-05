@@ -3,14 +3,19 @@
   "globalEnv": [
     "NODE_ENV",
     "APP_DOMAIN",
-    "USER_APP_URL",
+    "STORE_APP_URL",
     "ADMIN_APP_URL",
-    "SELLER_APP_URL",
     "DATABASE_URL",
     "AUTH_SECRET",
     "AUTH_COOKIE_DOMAIN",
+    "S3_ENDPOINT",
+    "S3_REGION",
+    "S3_ACCESS_KEY_ID",
+    "S3_SECRET_ACCESS_KEY",
+    "S3_BUCKET",
+    "S3_PUBLIC_URL",
     "SEED_ADMIN_PASSWORD",
-    "SEED_USER_PASSWORD"
+    "SEED_CUSTOMER_PASSWORD"
   ],
   "tasks": {
     "build": {
@@ -42,6 +47,9 @@
     "db:studio": {
       "cache": false,
       "persistent": true
+    },
+    "storage:setup": {
+      "cache": false
     }
   }
 }

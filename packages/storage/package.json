@@ -1,0 +1,33 @@
+{
+  "name": "@repo/storage",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "storage:setup": "tsx src/setup.ts",
+    "clean": "rm -rf .turbo node_modules"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.600.0",
+    "@aws-sdk/s3-request-presigner": "^3.600.0",
+    "@repo/types": "workspace:*",
+    "server-only": "^0.0.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@repo/config": "workspace:*",
+    "@types/node": "^24.19.1",
+    "dotenv": "^18.0.5",
+    "eslint": "^10.12.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.3"
+  }
+}
