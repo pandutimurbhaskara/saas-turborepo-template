@@ -10,7 +10,7 @@ import { joinUrl, stripTrailingSlash } from '@repo/utils'
 import { getApplicationEnv } from './env'
 import { getSubdomain, parseHost } from './host'
 
-export const RESERVED_SUBDOMAINS = ['www', 'app', 'api', 'admin', 'seller', 'staff'] as const
+export const RESERVED_SUBDOMAINS = ['www', 'app', 'api', 'admin', 'store', 'shop'] as const
 
 export type ReservedSubdomain = (typeof RESERVED_SUBDOMAINS)[number]
 
@@ -65,9 +65,8 @@ export function getApplicationRegistry(): ApplicationRegistry {
   cachedRegistry = buildApplicationRegistry({
     domain: env.APP_DOMAIN,
     applications: {
-      user: { url: env.USER_APP_URL },
+      storefront: { url: env.STORE_APP_URL },
       admin: { url: env.ADMIN_APP_URL },
-      seller: env.SELLER_APP_URL ? { url: env.SELLER_APP_URL } : undefined,
     },
   })
 
@@ -102,6 +101,46 @@ export function getApplicationUrl(
 ): string | null {
   const application = getApplicationByKey(key, registry)
   return application ? joinUrl(application.url, path) : null
+}
+
+const LOOPBACK_HOSTNAMES = ['localhost', '127.0.0.1', '::1'] as const
+
+export function isLoopbackHostname(hostname: string): boolean {
+  return (LOOPBACK_HOSTNAMES as readonly string[]).includes(hostname)
+}
+
+/**
+ * True when a request host targets the application's own origin.
+ *
+ * Plain loopback hostnames (localhost, 127.0.0.1, ::1) carry no application
+ * identity — in development every application shares them and is separated by
+ * port — so they are matched by port. Named hosts are matched by hostname.
+ *
+ * This matters for internal requests the dev server makes against its own
+ * origin (for example when following a server-action redirect): without the
+ * port check, `localhost:3001` would be resolved to the storefront application
+ * and cross-redirected away from the admin application.
+ */
+export function isOwnOriginRequest(
+  host: string | null | undefined,
+  application: ApplicationDefinition,
+): boolean {
+  const parsed = parseHost(host)
+  if (!parsed) return false
+
+  let selfUrl: URL
+  try {
+    selfUrl = new URL(application.url)
+  } catch {
+    return false
+  }
+
+  if (isLoopbackHostname(parsed.hostname)) {
+    const selfPort = selfUrl.port || (selfUrl.protocol === 'https:' ? '443' : '80')
+    return parsed.port !== null && parsed.port === selfPort
+  }
+
+  return parsed.hostname === selfUrl.hostname
 }
 
 export interface HostResolution {

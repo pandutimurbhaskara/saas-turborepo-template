@@ -1,8 +1,6 @@
 export const ROLES = {
-  USER: 'USER',
+  CUSTOMER: 'CUSTOMER',
   ADMIN: 'ADMIN',
-  SELLER: 'SELLER',
-  STAFF: 'STAFF',
 } as const
 
 export type Role = (typeof ROLES)[keyof typeof ROLES]
@@ -17,8 +15,10 @@ export const PERMISSIONS = {
   USERS_READ: 'users:read',
   USERS_MANAGE: 'users:manage',
   ADMIN_ACCESS: 'admin:access',
-  SELLER_ACCESS: 'seller:access',
-  STAFF_ACCESS: 'staff:access',
+  PRODUCTS_READ: 'products:read',
+  PRODUCTS_MANAGE: 'products:manage',
+  ORDERS_READ: 'orders:read',
+  ORDERS_MANAGE: 'orders:manage',
 } as const
 
 export type PermissionKey = (typeof PERMISSIONS)[keyof typeof PERMISSIONS]
@@ -26,23 +26,11 @@ export type PermissionKey = (typeof PERMISSIONS)[keyof typeof PERMISSIONS]
 export type Permission = PermissionKey | typeof WILDCARD_PERMISSION
 
 export const ROLE_PERMISSIONS: Record<Role, Permission[]> = {
-  [ROLES.USER]: [
+  [ROLES.CUSTOMER]: [
     PERMISSIONS.DASHBOARD_VIEW,
     PERMISSIONS.PROFILE_UPDATE,
     PERMISSIONS.SETTINGS_READ,
     PERMISSIONS.SETTINGS_MANAGE,
   ],
   [ROLES.ADMIN]: [WILDCARD_PERMISSION],
-  [ROLES.SELLER]: [
-    PERMISSIONS.DASHBOARD_VIEW,
-    PERMISSIONS.PROFILE_UPDATE,
-    PERMISSIONS.SETTINGS_READ,
-    PERMISSIONS.SELLER_ACCESS,
-  ],
-  [ROLES.STAFF]: [
-    PERMISSIONS.DASHBOARD_VIEW,
-    PERMISSIONS.PROFILE_UPDATE,
-    PERMISSIONS.SETTINGS_READ,
-    PERMISSIONS.STAFF_ACCESS,
-  ],
 }

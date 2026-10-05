@@ -2,9 +2,8 @@ import type { Role } from './authorization'
 import { ROLES } from './authorization'
 
 export const APPLICATION_KEYS = {
-  USER: 'user',
+  STOREFRONT: 'storefront',
   ADMIN: 'admin',
-  SELLER: 'seller',
 } as const
 
 export type ApplicationKey = (typeof APPLICATION_KEYS)[keyof typeof APPLICATION_KEYS]
@@ -19,9 +18,8 @@ export interface ApplicationDefinition {
 }
 
 export const APPLICATION_ROLES: Record<ApplicationKey, Role[]> = {
-  [APPLICATION_KEYS.USER]: [ROLES.USER, ROLES.ADMIN, ROLES.SELLER],
+  [APPLICATION_KEYS.STOREFRONT]: [ROLES.CUSTOMER, ROLES.ADMIN],
   [APPLICATION_KEYS.ADMIN]: [ROLES.ADMIN],
-  [APPLICATION_KEYS.SELLER]: [ROLES.SELLER],
 }
 
 export interface ApplicationRegistry {

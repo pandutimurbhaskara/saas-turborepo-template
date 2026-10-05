@@ -61,7 +61,7 @@ export async function signUp(input: SignUpInput): Promise<User> {
 
   const passwordHash = await hashPassword(parsed.data.password)
   const created = await createUser({ email, name: parsed.data.name, passwordHash })
-  await assignRolesToUser(created.id, [ROLES.USER])
+  await assignRolesToUser(created.id, [ROLES.CUSTOMER])
 
   const user = await getUserWithAuthorization(created.id)
   if (!user) throw new AuthError('internal', 'Failed to load the created account.')

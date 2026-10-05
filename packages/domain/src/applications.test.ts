@@ -6,6 +6,7 @@ import {
   getApplicationByKey,
   getApplicationFromHost,
   getApplicationUrl,
+  isOwnOriginRequest,
   isReservedSubdomain,
   RESERVED_SUBDOMAINS,
   resolveHost,
@@ -14,7 +15,7 @@ import {
 const registry = buildApplicationRegistry({
   domain: 'example.com',
   applications: {
-    user: { url: 'https://example.com' },
+    storefront: { url: 'https://example.com' },
     admin: { url: 'https://admin.example.com' },
   },
 })
@@ -22,7 +23,7 @@ const registry = buildApplicationRegistry({
 const localRegistry = buildApplicationRegistry({
   domain: 'localhost',
   applications: {
-    user: { url: 'http://localhost:3000' },
+    storefront: { url: 'http://localhost:3000' },
     admin: { url: 'http://admin.localhost:3001' },
   },
 })
@@ -42,43 +43,39 @@ describe('buildApplicationRegistry', () => {
       roles: [ROLES.ADMIN],
     })
 
-    const user = getApplicationByKey('user', registry)
-    expect(user?.subdomain).toBeNull()
-    expect(user?.roles).toEqual([ROLES.USER, ROLES.ADMIN, ROLES.SELLER])
+    const storefront = getApplicationByKey('storefront', registry)
+    expect(storefront?.subdomain).toBeNull()
+    expect(storefront?.roles).toEqual([ROLES.CUSTOMER, ROLES.ADMIN])
   })
 
   it('omits applications without a configured url', () => {
-    expect(getApplicationByKey('seller', registry)).toBeNull()
-  })
-
-  it('includes optional applications when configured', () => {
-    const extended = buildApplicationRegistry({
+    const adminOnly = buildApplicationRegistry({
       domain: 'example.com',
-      applications: {
-        user: { url: 'https://example.com' },
-        admin: { url: 'https://admin.example.com' },
-        seller: { url: 'https://seller.example.com' },
-      },
+      applications: { admin: { url: 'https://admin.example.com' } },
     })
+    expect(getApplicationByKey('storefront', adminOnly)).toBeNull()
 
-    expect(getApplicationByKey('seller', extended)).toMatchObject({
-      host: 'seller.example.com',
-      subdomain: 'seller',
-      roles: [ROLES.SELLER],
+    const storefrontOnly = buildApplicationRegistry({
+      domain: 'example.com',
+      applications: { storefront: { url: 'https://example.com' } },
     })
+    expect(getApplicationByKey('admin', storefrontOnly)).toBeNull()
   })
 
   it('throws on an invalid domain', () => {
     expect(() =>
-      buildApplicationRegistry({ domain: '', applications: { user: { url: 'https://x.com' } } }),
+      buildApplicationRegistry({
+        domain: '',
+        applications: { storefront: { url: 'https://x.com' } },
+      }),
     ).toThrow(/invalid application domain/i)
   })
 })
 
 describe('getApplicationFromHost', () => {
-  it('resolves the apex domain to the user application', () => {
-    expect(getApplicationFromHost('example.com', registry)?.key).toBe('user')
-    expect(getApplicationFromHost('example.com:3000', registry)?.key).toBe('user')
+  it('resolves the apex domain to the storefront application', () => {
+    expect(getApplicationFromHost('example.com', registry)?.key).toBe('storefront')
+    expect(getApplicationFromHost('example.com:3000', registry)?.key).toBe('storefront')
   })
 
   it('resolves subdomains to their application', () => {
@@ -97,7 +94,7 @@ describe('getApplicationFromHost', () => {
   })
 
   it('resolves local development hosts', () => {
-    expect(getApplicationFromHost('localhost:3000', localRegistry)?.key).toBe('user')
+    expect(getApplicationFromHost('localhost:3000', localRegistry)?.key).toBe('storefront')
     expect(getApplicationFromHost('admin.localhost:3001', localRegistry)?.key).toBe('admin')
   })
 })
@@ -105,11 +102,15 @@ describe('getApplicationFromHost', () => {
 describe('getApplicationUrl', () => {
   it('joins the application url with a path', () => {
     expect(getApplicationUrl('admin', '/users', registry)).toBe('https://admin.example.com/users')
-    expect(getApplicationUrl('user', '/', registry)).toBe('https://example.com/')
+    expect(getApplicationUrl('storefront', '/', registry)).toBe('https://example.com/')
   })
 
   it('returns null for applications that are not configured', () => {
-    expect(getApplicationUrl('seller', '/', registry)).toBeNull()
+    const adminOnly = buildApplicationRegistry({
+      domain: 'example.com',
+      applications: { admin: { url: 'https://admin.example.com' } },
+    })
+    expect(getApplicationUrl('storefront', '/', adminOnly)).toBeNull()
   })
 })
 
@@ -146,5 +147,33 @@ describe('isReservedSubdomain', () => {
     }
     expect(isReservedSubdomain('customer')).toBe(false)
     expect(isReservedSubdomain(null)).toBe(false)
+  })
+})
+
+describe('isOwnOriginRequest', () => {
+  const storefrontApp = getApplicationByKey('storefront', localRegistry)!
+  const adminApp = getApplicationByKey('admin', localRegistry)!
+
+  it('matches loopback hosts by port', () => {
+    expect(isOwnOriginRequest('localhost:3001', adminApp)).toBe(true)
+    expect(isOwnOriginRequest('localhost:3000', adminApp)).toBe(false)
+    expect(isOwnOriginRequest('localhost:3000', storefrontApp)).toBe(true)
+    expect(isOwnOriginRequest('127.0.0.1:3001', adminApp)).toBe(true)
+    expect(isOwnOriginRequest('[::1]:3001', adminApp)).toBe(true)
+  })
+
+  it('matches named hosts by hostname', () => {
+    expect(isOwnOriginRequest('admin.localhost:3001', adminApp)).toBe(true)
+    expect(isOwnOriginRequest('admin.localhost', adminApp)).toBe(true)
+    expect(isOwnOriginRequest('admin.localhost:3000', adminApp)).toBe(true)
+    expect(isOwnOriginRequest('localhost:3001', adminApp)).toBe(true)
+    expect(isOwnOriginRequest('example.com', adminApp)).toBe(false)
+  })
+
+  it('returns false for incomplete or invalid hosts', () => {
+    expect(isOwnOriginRequest(null, adminApp)).toBe(false)
+    expect(isOwnOriginRequest(undefined, adminApp)).toBe(false)
+    expect(isOwnOriginRequest('localhost', adminApp)).toBe(false)
+    expect(isOwnOriginRequest('', adminApp)).toBe(false)
   })
 })
