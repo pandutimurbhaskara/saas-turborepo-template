@@ -1,4 +1,5 @@
 export * from './cn'
 export * from './format'
+export * from './money'
 export * from './slug'
 export * from './url'
