@@ -1,18 +1,26 @@
-import { getApplicationByKey, getApplicationFromHost } from '@repo/domain'
+import { getApplicationByKey, getApplicationFromHost, isOwnOriginRequest } from '@repo/domain'
 import { SESSION_COOKIE_NAME } from '@repo/types'
 import { joinUrl } from '@repo/utils'
 import { NextResponse, type NextRequest } from 'next/server'
 
 import { APPLICATION_KEY } from '@/lib/app'
 
-const PROTECTED_PREFIXES = ['/dashboard', '/users', '/settings']
+const PROTECTED_PREFIXES = [
+  '/dashboard',
+  '/users',
+  '/settings',
+  '/products',
+  '/categories',
+  '/orders',
+]
 
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl
-  const resolved = getApplicationFromHost(request.headers.get('host'))
+  const host = request.headers.get('host')
+  const resolved = getApplicationFromHost(host)
   const self = getApplicationByKey(APPLICATION_KEY)
 
-  if (resolved && resolved.key !== APPLICATION_KEY && self) {
+  if (resolved && self && resolved.key !== APPLICATION_KEY && !isOwnOriginRequest(host, self)) {
     return NextResponse.redirect(joinUrl(resolved.url, `${pathname}${search}`))
   }
 

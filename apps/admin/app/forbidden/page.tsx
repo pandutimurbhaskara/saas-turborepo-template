@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default function ForbiddenPage() {
-  const userAppUrl = getApplicationUrl('user')
+  const storefrontUrl = getApplicationUrl('storefront')
 
   return (
     <div className="mx-auto flex min-h-dvh max-w-site flex-col px-6">
@@ -24,9 +24,9 @@ export default function ForbiddenPage() {
           description="Your account does not have permission to access the admin application. Admin access requires the ADMIN role."
           actions={
             <>
-              {userAppUrl && (
+              {storefrontUrl && (
                 <Button asChild>
-                  <a href={userAppUrl}>Go to the user app</a>
+                  <a href={storefrontUrl}>Go to the storefront</a>
                 </Button>
               )}
               <form action={signOutAction}>

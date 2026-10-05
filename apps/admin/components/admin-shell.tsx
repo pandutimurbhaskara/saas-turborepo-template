@@ -10,13 +10,16 @@ import {
   UserMenu,
   type SidebarNavItem,
 } from '@repo/ui'
-import { LayoutDashboard, Menu, Settings, Users, X } from 'lucide-react'
+import { LayoutDashboard, Menu, Package, ReceiptText, Settings, Tags, Users, X } from 'lucide-react'
 import { useState } from 'react'
 
 import { APP_NAME, APP_SECONDARY } from '@/lib/app'
 
 const NAV_ITEMS: SidebarNavItem[] = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/products', label: 'Products', icon: Package },
+  { href: '/categories', label: 'Categories', icon: Tags },
+  { href: '/orders', label: 'Orders', icon: ReceiptText },
   { href: '/users', label: 'Users', icon: Users },
   { href: '/settings', label: 'Settings', icon: Settings },
 ]
